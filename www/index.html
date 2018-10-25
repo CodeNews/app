@@ -1,19 +1,78 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    <link rel="stylesheet" type="text/css" href="mobileui/style.css">
-        <meta name="format-detection" content="telephone=no">
-        <meta charset="utf-8">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Apache Cordova</title>
-    </head>
-    <body>
 
-      
-      <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="mobileui/mobileui.js"></script>
-      <script type="text/javascript" src="js/index.js"></script>
-    </body>
+<head>
+  <link rel="stylesheet" type="text/css" href="mobileui/fonts.css">
+  <link rel="stylesheet" type="text/css" href="mobileui/style.css">
+  <meta name="format-detection" content="telephone=no">
+  <meta charset="utf-8">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <title>CodeNews</title>
+</head>
+
+<body>
+
+  <div class="header black-opacity-00 text-white" topClass="black-opacity-00" bottomClass="black" scrollHeight="220">
+    <button class="left icon ion-android-menu"></button>
+    <h1 class="align-center text-strong">CodeNews</h1>
+    <button class="right icon ion-android-search"></button>
+  </div>
+
+  <div class="content">
+
+    <div id="cover-primary" class="cover cover-200 blue-grey-400 blend-multiply text-white">
+      <div class="loading align-center" id="loading-primary">
+        <div class="space-huge"></div>
+        <svg class="loading-circle white-loading" width="40" height="40" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="15"></circle>
+        </svg>
+        <p>Carregando destaque...</p>
+      </div>
+      <p class="padding align-center hidden" id="msg-primary"></p>
+      <div id="info-primary" class="hidden">
+        <div data="primary" class="gradient bottom padding" onclick="showPost(${_id})">
+          <span class="yellow text-black padding">Destaque</span>
+          <span class="${category_class} padding">${category}</span>
+          <h1 class="margin-top font-libre text-big text-strong text-shadow">${title}</h1>
+          <p class="text-italic opacity-80">
+            $$formatDate{datetime} - ${author}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="list">
+      <a class="item" onclick="showPost(${_id})" data="posts">
+        <div class="left cover avatar-list" style="background-image: url(${image})"></div>
+        <h2 class="font-libre">${title}</h2>
+        <p class="text-italic opacity-80">
+          $$formatDate{datetime} - ${author}
+        </p>
+        <span class="${category_class} padding text-small">${category}</span>
+      </a>
+    </div>
+
+    <div class="loading align-center" id="loading-posts">
+      <div class="space-huge"></div>
+      <svg class="loading-circle" width="40" height="40" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="15"></circle>
+      </svg>
+      <p>Carregando posts...</p>
+    </div>
+
+    <p class="padding align-center hidden" id="msg-posts"></p>
+
+  </div>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="mobileui/mobileui.js"></script>
+  <script type="text/javascript" src="lib/header.js"></script>
+  <script type="text/javascript" src="lib/moment-pt-br.js"></script>
+  <script type="text/javascript" src="lib/showdown.min.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+</body>
+
 </html>

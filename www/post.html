@@ -1,0 +1,27 @@
+<div class="page">
+
+
+  <div id="header-post" class="header black-opacity-00 text-white" topClass="black-opacity-00" bottomClass="black" scrollHeight="220">
+    <button class="left icon ion-android-arrow-back" onclick="backPage()"></button>
+  </div>
+
+  <div class="content">
+
+    <div data="primary" class="cover cover-200 blue-grey-400 blend-multiply text-white" style="background-image: url(${image})">
+      <div class="gradient bottom padding">
+        <span class="yellow text-black padding">Destaque</span>
+        <span class="${category_class} padding">${category}</span>
+        <h1 class="margin-top font-libre text-big text-strong text-shadow">${title}</h1>
+        <p class="text-italic opacity-80">
+          $$formatDate{datetime} - ${author}
+        </p>
+      </div>
+    </div>
+
+    <div class="description-post" id="description-post"></div>
+    <div class="align-center padding">
+      <button class="blue-grey-400 radius" onclick="openUrlPost()">Ver post completo</button>
+    </div>
+  </div>
+
+</div>

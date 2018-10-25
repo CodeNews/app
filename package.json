@@ -1,0 +1,33 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "Aplicativo criado em Cordova e MobileUI para exibir notícias focadas em desenvolvimento de software em PT-BR.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "standard": {
+    "global": [
+      "MobileUI",
+      "moment",
+      "openPage",
+      "showdown",
+      "CONFIG",
+      "alert"
+    ],
+    "ignore": [
+      "/www/lib/"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeNews/app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodeNews/app/issues"
+  },
+  "homepage": "https://github.com/CodeNews/app#readme"
+}

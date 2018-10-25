@@ -1,0 +1,30 @@
+html, body {
+  font-family: 'Open Sans', sans-serif;
+}
+.font-libre {
+  font-family: 'Libre Baskerville', serif;
+}
+.text-italic {
+  font-style: italic;
+}
+.avatar-list {
+  width: 85px;
+  height: 85px;
+}
+.description-post {
+    padding: 10px;
+}
+.description-post h1 {
+  font-weight: 800;
+  font-size: 20px;
+  margin-top: 10px;
+}
+.description-post h2 {
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 10px;
+}
+#msg-primary,
+#msg-posts {
+  padding-top: 100px;
+}
