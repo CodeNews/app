@@ -28,3 +28,14 @@ html, body {
 #msg-posts {
   padding-top: 100px;
 }
+#about-contributor .item {
+  line-height: 16px;
+}
+#about-contributor span.label {
+  font-size: 12px;
+}
+@media only screen and (max-width : 385px) {
+  .list .item h1, .list .item h2 {
+      font-size: 14px;
+  }
+}

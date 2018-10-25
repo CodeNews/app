@@ -29,5 +29,19 @@
   "bugs": {
     "url": "https://github.com/CodeNews/app/issues"
   },
-  "homepage": "https://github.com/CodeNews/app#readme"
+  "homepage": "https://github.com/CodeNews/app#readme",
+  "dependencies": {
+    "cordova-android": "^7.0.0",
+    "cordova-plugin-whitelist": "^1.3.3",
+    "onesignal-cordova-plugin": "^2.4.4"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "onesignal-cordova-plugin": {}
+    },
+    "platforms": [
+      "android"
+    ]
+  }
 }

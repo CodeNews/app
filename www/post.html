@@ -7,19 +7,52 @@
 
   <div class="content">
 
-    <div data="primary" class="cover cover-200 blue-grey-400 blend-multiply text-white" style="background-image: url(${image})">
-      <div class="gradient bottom padding">
-        <span class="yellow text-black padding">Destaque</span>
-        <span class="${category_class} padding">${category}</span>
-        <h1 class="margin-top font-libre text-big text-strong text-shadow">${title}</h1>
-        <p class="text-italic opacity-80">
-          $$formatDate{datetime} - ${author}
-        </p>
+    <div id="cover-detail-primary" class="cover cover-200 blue-grey-400 blend-multiply text-white" style="background-image: url(${image})">
+      <div class="loading align-center" id="loading-detail-primary">
+        <div class="space-huge"></div>
+        <svg class="loading-circle white-loading" width="40" height="40" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="15"></circle>
+        </svg>
+        <p>Carregando título...</p>
+      </div>
+      <p class="padding align-center hidden" id="msg-detail-primary"></p>
+      <div id="info-detail-primary" class="hidden">
+        <div data="post" class="gradient bottom padding" onclick="showPost('${_id}')">
+          <span class="yellow text-black padding">Destaque</span>
+          <span class="${category_class} padding">${category}</span>
+          <h1 class="margin-top font-libre text-big text-strong text-shadow">${title}</h1>
+          <p class="text-italic opacity-80">
+            $$formatDate{datetime} - ${author}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="list no-border hidden grey-100" id="about-contributor">
+      <div class="item" onclick="openAboutContributor()">
+        <img id="photo-contributor" class="left avatar circle">
+        <span class="label opacity-50">Recomendado por</span>
+        <h2 id="name-contributor" class="text-strong"></h2>
+        <p id="start-contributor" class="text-italic opacity-70 text-small"></p>
+        <div class="right">
+          <i class="icon ion-ios-arrow-thin-right"></i>
+        </div>
       </div>
     </div>
 
     <div class="description-post" id="description-post"></div>
-    <div class="align-center padding">
+
+    <div class="loading align-center" id="loading-description">
+      <div class="space-huge"></div>
+      <svg class="loading-circle" width="40" height="40" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="15"></circle>
+      </svg>
+      <p>Carregando conteúdo...</p>
+    </div>
+
+    <p class="padding align-center hidden" id="msg-description"></p>
+
+    <div class="align-center padding hidden" id="btn-more-detail">
       <button class="blue-grey-400 radius" onclick="openUrlPost()">Ver post completo</button>
     </div>
   </div>

@@ -61,3 +61,5 @@ typings/
 .next
 
 www/js/config.js
+platforms
+plugins

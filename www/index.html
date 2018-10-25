@@ -32,7 +32,7 @@
       </div>
       <p class="padding align-center hidden" id="msg-primary"></p>
       <div id="info-primary" class="hidden">
-        <div data="primary" class="gradient bottom padding" onclick="showPost(${_id})">
+        <div data="primary" class="gradient bottom padding" onclick="showPost('${_id}')">
           <span class="yellow text-black padding">Destaque</span>
           <span class="${category_class} padding">${category}</span>
           <h1 class="margin-top font-libre text-big text-strong text-shadow">${title}</h1>
@@ -44,10 +44,10 @@
     </div>
 
     <div class="list">
-      <a class="item" onclick="showPost(${_id})" data="posts">
+      <a class="item" onclick="showPost('${_id}')" data="posts">
         <div class="left cover avatar-list" style="background-image: url(${image})"></div>
         <h2 class="font-libre">${title}</h2>
-        <p class="text-italic opacity-80">
+        <p class="text-italic opacity-70">
           $$formatDate{datetime} - ${author}
         </p>
         <span class="${category_class} padding text-small">${category}</span>
@@ -72,6 +72,7 @@
   <script type="text/javascript" src="lib/moment-pt-br.js"></script>
   <script type="text/javascript" src="lib/showdown.min.js"></script>
   <script type="text/javascript" src="js/config.js"></script>
+  <script type="text/javascript" src="js/request.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
 </body>
 

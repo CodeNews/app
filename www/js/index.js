@@ -3,9 +3,22 @@ window.bindHeader()
 
 var posts = []
 var primary = {}
+var post = null
+var postId = null
+
+document.addEventListener('deviceready', function () {
+  var notificationOpenedCallback = function (jsonData) {
+    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData))
+  }
+
+  window.plugins.OneSignal
+    .startInit('39015cc7-99a8-445c-86be-a047f3a218fe')
+    .handleNotificationOpened(notificationOpenedCallback)
+    .endInit()
+}, false)
 
 function getPrimaryPost () {
-  MobileUI.ajax.get(CONFIG.URL_API + '/posts?primary=true').end(function (err, res) {
+  window.request.getPrimaryPost(function (err, res) {
     document.getElementById('loading-primary').style.display = 'none'
     getPosts()
     if (err) {
@@ -23,7 +36,7 @@ function getPrimaryPost () {
 getPrimaryPost()
 
 function getPosts () {
-  MobileUI.ajax.get(CONFIG.URL_API + '/posts').end(function (err, res) {
+  window.request.getPosts(function (err, res) {
     document.getElementById('loading-posts').style.display = 'none'
     if (err) {
       var msg = 'Não foi possível listar posts neste momento, tente mais tarde!'
@@ -40,18 +53,47 @@ MobileUI.formatDate = function (datetime) {
 }
 
 function showPost (_id) {
-  console.log(_id)
+  postId = _id
   openPage('post', doneOpenPost)
 }
 
 function doneOpenPost () {
   window.bindHeader('header-post')
-  var descriptionHtml = converter.makeHtml(description)
-  document.getElementById('description-post').innerHTML = descriptionHtml
+  window.request.getPost(postId, function (err, res) {
+    document.getElementById('loading-detail-primary').style.display = 'none'
+    document.getElementById('loading-description').style.display = 'none'
+    if (err) {
+      var msg = 'Não foi possível listar este post neste momento, tente mais tarde!'
+      document.getElementById('msg-detail-primary').innerHTML = msg
+      document.getElementById('msg-detail-primary').style.display = 'block'
+      return
+    }
+
+    post = res.body.data
+    document.getElementById('cover-detail-primary').style.backgroundImage = 'url(' + primary.image + ')'
+    document.getElementById('info-detail-primary').style.display = 'block'
+    var descriptionHtml = converter.makeHtml(post.description)
+    console.log(post)
+    document.getElementById('description-post').innerHTML = descriptionHtml
+    if (post.link) {
+      document.getElementById('btn-more-detail').style.display = 'block'
+    }
+    document.getElementById('about-contributor').style.display = 'block'
+    document.getElementById('photo-contributor').src = post.contributor.photo
+    document.getElementById('name-contributor').innerHTML = post.contributor.name
+    document.getElementById('start-contributor').innerHTML = '<i class="icon ion-android-calendar"></i> desde ' + moment(Number(post.contributor.date_start)).format('MM/YYYY')
+  })
+}
+
+function openAboutContributor () {
+  openLink(post.contributor.url)
 }
 
 function openUrlPost () {
-  var link = 'https://tecnospeed.com.br'
+  openLink(post.link)
+}
+
+function openLink (link) {
   if (window.cordova && window.cordova.InAppBrowser) {
     window.cordova.InAppBrowser.open(link, '_blank', 'location=yes,hidenavigationbuttons=yes,hideurlbar=yes')
   } else {
