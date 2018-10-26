@@ -11,10 +11,9 @@ document.addEventListener('deviceready', function () {
     console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData))
   }
 
-  window.plugins.OneSignal
-    .startInit('39015cc7-99a8-445c-86be-a047f3a218fe')
-    .handleNotificationOpened(notificationOpenedCallback)
-    .endInit()
+  if (window.plugins && window.plugins.OneSignal) {
+    window.plugins.OneSignal.startInit('39015cc7-99a8-445c-86be-a047f3a218fe').handleNotificationOpened(notificationOpenedCallback).endInit()
+  }
 }, false)
 
 function getPrimaryPost () {
@@ -70,13 +69,17 @@ function doneOpenPost () {
     }
 
     post = res.body.data
-    document.getElementById('cover-detail-primary').style.backgroundImage = 'url(' + primary.image + ')'
+    document.getElementById('cover-detail-primary').style.backgroundImage = 'url(' + post.image + ')'
     document.getElementById('info-detail-primary').style.display = 'block'
     var descriptionHtml = converter.makeHtml(post.description)
     console.log(post)
     document.getElementById('description-post').innerHTML = descriptionHtml
-    if (post.link) {
+    if (post.url_complete) {
       document.getElementById('btn-more-detail').style.display = 'block'
+      document.querySelectorAll('#btn-more-detail button')[0].innerHTML = 'Ver post completo'
+    } else if (post.url_original) {
+      document.getElementById('btn-more-detail').style.display = 'block'
+      document.querySelectorAll('#btn-more-detail button')[0].innerHTML = 'Ver post original'
     }
     document.getElementById('about-contributor').style.display = 'block'
     document.getElementById('photo-contributor').src = post.contributor.photo
@@ -90,7 +93,8 @@ function openAboutContributor () {
 }
 
 function openUrlPost () {
-  openLink(post.link)
+  var link = post.url_complete || post.url_original
+  openLink(link)
 }
 
 function openLink (link) {
@@ -100,4 +104,17 @@ function openLink (link) {
     var win = window.open(link, '_blank')
     win.focus()
   }
+}
+
+function sharePost () {
+  var link = post.url_complete || post.url_original || null
+  if (!link) return alert('Este post não tem link para compartilhamento!', 'Atenção')
+
+  if (window.plugins && window.plugins.socialsharing) {
+    window.plugins.socialsharing.share(null, null, null, link)
+  }
+}
+
+function saveLoved () {
+  alert('Recurso não disponível nesta versão, aguarde 😉', 'Em breve')
 }

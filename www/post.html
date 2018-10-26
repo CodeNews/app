@@ -1,13 +1,27 @@
 <div class="page">
 
+  <div class="popover" id="popoverPost">
+    <div class="list">
+      <div class="item" onclick="sharePost()">
+        <h1>Compartilhar post</h1>
+      </div>
+      <div class="item" onclick="saveLoved()">
+        <h1>Salvar como favorito</h1>
+      </div>
+    </div>
+  </div>
 
   <div id="header-post" class="header black-opacity-00 text-white" topClass="black-opacity-00" bottomClass="black" scrollHeight="220">
     <button class="left icon ion-android-arrow-back" onclick="backPage()"></button>
+    <div class="right">
+      <button class="icon ion-android-share-alt" onclick="sharePost()"></button>
+      <button class="icon ion-android-more-vertical" onclick="openPopover('popoverPost')"></button>
+    </div>
   </div>
 
   <div class="content">
 
-    <div id="cover-detail-primary" class="cover cover-200 blue-grey-400 blend-multiply text-white" style="background-image: url(${image})">
+    <div id="cover-detail-primary" class="cover cover-200 blue-grey-400 blend-multiply text-white">
       <div class="loading align-center" id="loading-detail-primary">
         <div class="space-huge"></div>
         <svg class="loading-circle white-loading" width="40" height="40" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -17,8 +31,7 @@
       </div>
       <p class="padding align-center hidden" id="msg-detail-primary"></p>
       <div id="info-detail-primary" class="hidden">
-        <div data="post" class="gradient bottom padding" onclick="showPost('${_id}')">
-          <span class="yellow text-black padding">Destaque</span>
+        <div data="post" class="gradient bottom padding">
           <span class="${category_class} padding">${category}</span>
           <h1 class="margin-top font-libre text-big text-strong text-shadow">${title}</h1>
           <p class="text-italic opacity-80">
@@ -53,7 +66,7 @@
     <p class="padding align-center hidden" id="msg-description"></p>
 
     <div class="align-center padding hidden" id="btn-more-detail">
-      <button class="blue-grey-400 radius" onclick="openUrlPost()">Ver post completo</button>
+      <button class="blue-grey-400 radius" onclick="openUrlPost()">Saiba mais</button>
     </div>
   </div>
 
