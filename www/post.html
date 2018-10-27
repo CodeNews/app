@@ -32,7 +32,7 @@
       <p class="padding align-center hidden" id="msg-detail-primary"></p>
       <div id="info-detail-primary" class="hidden">
         <div data="post" class="gradient bottom padding">
-          <span class="${category_class} padding">${category}</span>
+          $$getTagsPost{_id}
           <h1 class="margin-top font-libre text-big text-strong text-shadow">${title}</h1>
           <p class="text-italic opacity-80">
             $$formatDate{datetime} - ${author}

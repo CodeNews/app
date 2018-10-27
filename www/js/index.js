@@ -16,15 +16,23 @@ document.addEventListener('deviceready', function () {
   }
 }, false)
 
-MobileUI.getTagsPrimary = function (_id) {
-  var tags = ''
-  if (primary.tags) {
-    for (var i in primary.tags) {
-      tags += '<span class="' + primary.tags[i].color + ' padding margin-right">' + primary.tags[i].name + '</span>'
+function getTagsHtml (tags) {
+  var tagsHtml = ''
+  if (tags) {
+    for (var i in tags) {
+      tagsHtml += '<span class="' + tags[i].color + ' padding margin-right">' + tags[i].name + '</span>'
     }
   }
 
-  return tags
+  return tagsHtml
+}
+
+MobileUI.getTagsPrimary = function (_id) {
+  return getTagsHtml(primary.tags)
+}
+
+MobileUI.getTagsPost = function (_id) {
+  return getTagsHtml(post.tags)
 }
 
 function getPrimaryPost () {
