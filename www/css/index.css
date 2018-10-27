@@ -37,6 +37,12 @@ html, body {
 .margin-right {
   margin-right:5px;
 }
+#menu .list-cover h1 {
+  font-size: 23px !important;
+}
+#menu i {
+  font-size: 25px;
+}
 @media only screen and (max-width : 385px) {
   .list .item h1, .list .item h2 {
       font-size: 14px;
