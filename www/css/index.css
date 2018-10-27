@@ -34,6 +34,9 @@ html, body {
 #about-contributor span.label {
   font-size: 12px;
 }
+.margin-right {
+  margin-right:5px;
+}
 @media only screen and (max-width : 385px) {
   .list .item h1, .list .item h2 {
       font-size: 14px;

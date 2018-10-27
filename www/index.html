@@ -34,7 +34,7 @@
       <div id="info-primary" class="hidden">
         <div data="primary" class="gradient bottom padding" onclick="showPost('${_id}')">
           <span class="yellow text-black padding">Destaque</span>
-          <span class="${category_class} padding">${category}</span>
+          $$getTagsPrimary{_id}
           <h1 class="margin-top font-libre text-big text-strong text-shadow">${title}</h1>
           <p class="text-italic opacity-80">
             $$formatDate{datetime} - ${author}
@@ -50,6 +50,7 @@
         <p class="text-italic opacity-70">
           $$formatDate{datetime} - ${author}
         </p>
+        ${tagsHtml}
         <span class="${category_class} padding text-small">${category}</span>
       </a>
     </div>

@@ -17,6 +17,17 @@ document.addEventListener('deviceready', function () {
     .endInit()
 }, false)
 
+MobileUI.getTagsPrimary = function (_id) {
+  var tags = ''
+  if (primary.tags) {
+    for (var i in primary.tags) {
+      tags += '<span class="' + primary.tags[i].color + ' padding margin-right">' + primary.tags[i].name + '</span>'
+    }
+  }
+
+  return tags
+}
+
 function getPrimaryPost () {
   window.request.getPrimaryPost(function (err, res) {
     document.getElementById('loading-primary').style.display = 'none'
@@ -43,6 +54,12 @@ function getPosts () {
       document.getElementById('msg-posts').innerHTML = msg
       document.getElementById('msg-posts').style.display = 'block'
       return
+    }
+    for (var i in res.body.data) {
+      res.body.data[i].tagsHtml = ''
+      for (var t in res.body.data[i].tags) {
+        res.body.data[i].tagsHtml += '<span class="' + res.body.data[i].tags[t].color + ' padding text-small margin-right">' + res.body.data[i].tags[t].name + '</span>'
+      }
     }
     posts = res.body.data
   })
