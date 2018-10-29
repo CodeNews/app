@@ -38,7 +38,7 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <preference name="StatusBarBackgroundColor" value="#455a64" />
+    <preference name="StatusBarBackgroundColor" value="#000000" />
     <preference name="FullScreen" value="false" />
     <preference name="SplashScreenBackgroundColor" value="#263238" />
     <plugin name="onesignal-cordova-plugin" spec="^2.4.4" />

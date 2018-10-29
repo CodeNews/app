@@ -20,7 +20,7 @@
     <button class="right icon ion-android-search"></button>
   </div>
 
-  <div class="content">
+  <div class="content" id="contentMain" onscroll="myFunction()">
 
     <div id="cover-primary" class="cover cover-200 blue-grey-400 blend-multiply text-white">
       <div class="loading align-center" id="loading-primary">
@@ -37,6 +37,9 @@
           $$getTagsPrimary{_id}
           <h1 class="margin-top font-libre text-big text-strong text-shadow">${title}</h1>
           <p class="text-italic opacity-80">
+            <div class="right">
+              <img class="language" src="$$getImgLanguage{language}">
+            </div>
             $$formatDate{datetime} - ${author}
           </p>
         </div>

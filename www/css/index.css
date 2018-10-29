@@ -24,6 +24,48 @@ html, body {
   font-size: 16px;
   margin-top: 10px;
 }
+.description-post p {
+  line-height: 1.58;
+  letter-spacing: -.004em;
+  margin-bottom: 21px;
+}
+.description-post a {
+  text-decoration: underline;
+  color: #3f51b5;
+}
+blockquote{
+  font-family: Open Sans;
+  font-style: italic;
+  color: #555555;
+  padding: 5px 20px 1px 45px;
+  border-left: 8px solid #78C0A8;
+  line-height: 1.6;
+  position: relative;
+  background: #EDEDED;
+  margin-bottom: 10px;
+}
+
+blockquote::before{
+  font-family:Arial;
+  content: "\201C";
+  color:#78C0A8;
+  font-size:4em;
+  position: absolute;
+  left: 10px;
+  top:-10px;
+}
+
+blockquote::after{
+  content: '';
+}
+
+blockquote span{
+  display:block;
+  color:#333333;
+  font-style: normal;
+  font-weight: bold;
+  margin-top:1em;
+}
 #msg-primary,
 #msg-posts {
   padding-top: 100px;
@@ -42,6 +84,17 @@ html, body {
 }
 #menu i {
   font-size: 25px;
+}
+.language {
+  width: 23px;
+}
+.ptr--ptr {
+  z-index: 999 !important;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
 }
 @media only screen and (max-width : 385px) {
   .list .item h1, .list .item h2 {

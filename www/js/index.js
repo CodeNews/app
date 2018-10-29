@@ -5,6 +5,18 @@ var posts = []
 var primary = {}
 var post = null
 var postId = null
+window.enablePullRefresh = true
+
+function clearData () {
+  posts = []
+  primary = {}
+  post = null
+  postId = null
+  document.getElementById('loading-primary').style.display = 'block'
+  document.getElementById('loading-posts').style.display = 'block'
+  document.getElementById('cover-primary').style.backgroundImage = ''
+  document.getElementById('info-primary').style.display = 'none'
+}
 
 document.addEventListener('deviceready', function () {
   var notificationOpenedCallback = function (jsonData) {
@@ -36,6 +48,7 @@ MobileUI.getTagsPost = function (_id) {
 }
 
 function getPrimaryPost () {
+  clearData()
   window.request.getPrimaryPost(function (err, res) {
     document.getElementById('loading-primary').style.display = 'none'
     getPosts()
@@ -52,6 +65,20 @@ function getPrimaryPost () {
 }
 
 getPrimaryPost()
+
+PullToRefresh.init({
+  mainElement: '#contentMain',
+  shouldPullToRefresh: function () {
+    return window.enablePullRefresh && !postId
+  },
+  instructionsPullToRefresh: 'Puxe para atualizar...',
+  instructionsReleaseToRefresh: 'Solte para atualizar...',
+  instructionsRefreshing: 'Atualizando...',
+  distIgnore: 150,
+  onRefresh: function () {
+    getPrimaryPost()
+  }
+})
 
 function getPosts () {
   window.request.getPosts(function (err, res) {
@@ -74,6 +101,10 @@ function getPosts () {
 
 MobileUI.formatDate = function (datetime) {
   return moment(Number(datetime)).fromNow()
+}
+
+MobileUI.getImgLanguage = function (l) {
+  return l === 'en' ? 'img/united-states.png' : 'img/brazil.png'
 }
 
 function showPost (_id) {
@@ -143,3 +174,7 @@ function sharePost () {
 function saveLoved () {
   alert('Recurso não disponível nesta versão, aguarde 😉', 'Em breve')
 }
+
+document.addEventListener('backPage', function (e) {
+  postId = null
+})

@@ -23,7 +23,8 @@ window.bindHeader = function (idElm) {
       for (x in elm.config.topClass) { elm.classList.remove(elm.config.bottomClass[x]) }
     }
     elm.config = config
-    elm.parentNode.querySelectorAll('.content')[0].onscroll = () => {
+    elm.parentNode.querySelectorAll('.content')[0].onscroll = function() {
+      window.enablePullRefresh = !(this.scrollTop)
       if (elm.parentNode.querySelectorAll('.content')[0].scrollTop <= elm.config.scrollHeight) {
         for (x in elm.config.topClass) { elm.classList.add(elm.config.topClass[x]) }
         for (x in elm.config.bottomClass) { elm.classList.remove(elm.config.bottomClass[x]) }

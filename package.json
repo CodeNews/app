@@ -13,7 +13,8 @@
       "openPage",
       "showdown",
       "CONFIG",
-      "alert"
+      "alert",
+      "PullToRefresh"
     ],
     "ignore": [
       "/www/lib/"
