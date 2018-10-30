@@ -175,6 +175,22 @@ function saveLoved () {
   alert('Recurso não disponível nesta versão, aguarde 😉', 'Em breve')
 }
 
+function showSearchText () {
+  document.getElementById('header-main').style.display = 'none'
+  document.getElementById('header-search').style.display = 'block'
+  document.getElementById('header-search').classList.add('header')
+  document.getElementById('cover-primary').style.display = 'none'
+  document.getElementById('contentMain').classList.add('has-header')
+  document.getElementById('input-search').focus()
+}
+
+function backSearch () {
+  document.getElementById('header-main').style.display = 'block'
+  document.getElementById('header-search').style.display = 'none'
+  document.getElementById('cover-primary').style.display = 'block'
+  document.getElementById('contentMain').classList.remove('has-header')
+}
+
 document.addEventListener('backPage', function (e) {
   postId = null
 })

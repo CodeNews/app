@@ -19,6 +19,18 @@ html, body {
   font-size: 20px;
   margin-top: 10px;
 }
+#header-search input {
+  background: none;
+  border:none;
+  color: #fff;
+  font-size: 16px;
+  width: 100%;
+  padding-right: 90px;
+}
+#header-search input::placeholder { 
+  color: white;
+  opacity: 0.5;
+}
 .description-post h2 {
   font-weight: bold;
   font-size: 16px;

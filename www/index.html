@@ -14,10 +14,20 @@
 
 <body>
 
-  <div class="header black-opacity-00 text-white" topClass="black-opacity-00" bottomClass="black" scrollHeight="220">
-    <button class="left icon ion-android-menu" onclick="openMenu('menu')"></button>
+  <div id="header-main" class="header black-opacity-00 text-white" topClass="black-opacity-00" bottomClass="black"
+    scrollHeight="220">
+    <button id="btn-menu" class="left icon ion-android-menu" onclick="openMenu('menu')"></button>
     <h1 class="align-center text-strong">CodeNews</h1>
-    <button class="right icon ion-android-search"></button>
+    <div class="right">
+      <button class="icon ion-android-search" onclick="showSearchText()"></button>
+      <button class="icon ion-android-funnel"></button>
+    </div>
+  </div>
+
+  <div class="black hidden" id="header-search">
+    <button class="left icon ion-android-arrow-back" onclick="backSearch()"></button>
+    <input id="input-search" class="font-libre" type="text" placeholder="Procurar por...">
+    <button class="right icon ion-checkmark-circled" onclick="searchText()"></button>
   </div>
 
   <div class="content" id="contentMain" onscroll="myFunction()">
