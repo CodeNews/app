@@ -87,7 +87,7 @@ getPrimaryPost()
 PullToRefresh.init({
   mainElement: '#contentMain',
   shouldPullToRefresh: function () {
-    return window.enablePullRefresh && !postId && notSearching() && !contributors.length
+    return window.enablePullRefresh && notSearching()
   },
   instructionsPullToRefresh: 'Puxe para atualizar...',
   instructionsReleaseToRefresh: 'Solte para atualizar...',
@@ -325,8 +325,13 @@ function validTagsChekedsAndBack () {
 document.addEventListener('backPage', function (e) {
   postId = null
   contributors = []
+  window.enablePullRefresh = true
   if (e.detail.page === 'filter.html') {
     validFilterAll()
     getPrimaryPost()
   }
+})
+
+document.addEventListener('openPage', function (e) {
+  window.enablePullRefresh = false
 })
