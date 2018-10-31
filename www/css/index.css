@@ -27,9 +27,25 @@ html, body {
   width: 100%;
   padding-right: 90px;
 }
+.padding-big {
+  padding: 20px;
+}
+.using-filter::after {
+  content: ' ';
+  position: absolute;
+  background-color: red;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-left: -9px;
+  margin-top: 3px;
+}
 #header-search input::placeholder { 
   color: white;
   opacity: 0.5;
+}
+.description-post {
+  font-size: 15px;
 }
 .description-post h2 {
   font-weight: bold;

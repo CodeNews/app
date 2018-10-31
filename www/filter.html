@@ -1,0 +1,42 @@
+<div class="page">
+
+  <div class="header black text-white">
+    <button class="left icon ion-android-arrow-back" onclick="validTagsChekedsAndBack()"></button>
+    <h1>Filtrar posts</h1>
+  </div>
+
+  <div class="content has-header">
+
+    <div class="loading align-center" id="loading-tags">
+        <div class="space-huge"></div>
+        <svg class="loading-circle" width="40" height="40" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="15"></circle>
+        </svg>
+        <p>Carregando tags...</p>
+    </div>
+    
+    <p class="padding align-center hidden" id="msg-tags"></p>
+
+        
+    <div class="list hidden" id="list-tags">
+        <div class="item grey-200 text-grey text-light">
+          <p>Filtre por todas as tags</p>
+        </div>
+        <div class="item">
+            <h2>Todas as tags</h2>
+            <div class="right">
+                <input type="checkbox" onchange="changeAllTags()" class="switch black" id="checkbox-all-tag">
+            </div>
+        </div>
+        <div class="item grey-200 text-grey text-light">
+            <p>Ou marque as tags que você deseja filtrar</p>
+        </div>
+        <div class="item" data="tags">
+          <h2>${name}</h2>
+          <div class="right">
+            <input type="checkbox" tagitem="true" id="${_id}" class="switch black" $$istagchecked{_id}>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

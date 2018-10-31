@@ -1,11 +1,26 @@
 var converter = new showdown.Converter()
 window.bindHeader()
 
+var versionApp = 110
 var posts = []
+var tags = []
 var primary = {}
+var contributors = []
 var post = null
 var postId = null
 window.enablePullRefresh = true
+var filtersIds = localStorage.getItem('filter') || ''
+var filterAll = !filtersIds
+
+function validFilterAll () {
+  if (!filterAll) {
+    document.getElementById('btn-filter').classList.add('using-filter')
+  } else {
+    document.getElementById('btn-filter').classList.remove('using-filter')
+  }
+}
+
+validFilterAll()
 
 function clearData () {
   posts = []
@@ -25,6 +40,9 @@ document.addEventListener('deviceready', function () {
 
   if (window.plugins && window.plugins.OneSignal) {
     window.plugins.OneSignal.startInit('39015cc7-99a8-445c-86be-a047f3a218fe').handleNotificationOpened(notificationOpenedCallback).endInit()
+    window.plugins.OneSignal.sendTags({
+      versionApp: versionApp
+    })
   }
 }, false)
 
@@ -69,7 +87,7 @@ getPrimaryPost()
 PullToRefresh.init({
   mainElement: '#contentMain',
   shouldPullToRefresh: function () {
-    return window.enablePullRefresh && !postId
+    return window.enablePullRefresh && !postId && notSearching() && !contributors.length
   },
   instructionsPullToRefresh: 'Puxe para atualizar...',
   instructionsReleaseToRefresh: 'Solte para atualizar...',
@@ -80,6 +98,10 @@ PullToRefresh.init({
   }
 })
 
+function notSearching () {
+  return !document.getElementById('header-search').style.display || document.getElementById('header-search').style.display === 'none'
+}
+
 function getPosts () {
   window.request.getPosts(function (err, res) {
     document.getElementById('loading-posts').style.display = 'none'
@@ -89,13 +111,7 @@ function getPosts () {
       document.getElementById('msg-posts').style.display = 'block'
       return
     }
-    for (var i in res.body.data) {
-      res.body.data[i].tagsHtml = ''
-      for (var t in res.body.data[i].tags) {
-        res.body.data[i].tagsHtml += '<span class="' + res.body.data[i].tags[t].color + ' padding text-small margin-right">' + res.body.data[i].tags[t].name + '</span>'
-      }
-    }
-    posts = res.body.data
+    posts = bindDataAndTags(res.body.data)
   })
 }
 
@@ -128,7 +144,6 @@ function doneOpenPost () {
     document.getElementById('cover-detail-primary').style.backgroundImage = 'url(' + post.image + ')'
     document.getElementById('info-detail-primary').style.display = 'block'
     var descriptionHtml = converter.makeHtml(post.description)
-    console.log(post)
     document.getElementById('description-post').innerHTML = descriptionHtml
     if (post.url_complete) {
       document.getElementById('btn-more-detail').style.display = 'block'
@@ -144,7 +159,10 @@ function doneOpenPost () {
   })
 }
 
-function openAboutContributor () {
+function openAboutContributor (url) {
+  if (url) {
+    openLink(url)
+  }
   openLink(post.contributor.url)
 }
 
@@ -171,8 +189,41 @@ function sharePost () {
   }
 }
 
+function searchText () {
+  var q = document.getElementById('input-search').value
+  posts = []
+  document.getElementById('loading-posts').style.display = 'block'
+  window.request.getPosts(q, function (err, res) {
+    document.getElementById('loading-posts').style.display = 'none'
+    if (err) {
+      var msg = 'Não foi possível listar posts neste momento, tente mais tarde!'
+      document.getElementById('msg-posts').innerHTML = msg
+      document.getElementById('msg-posts').style.display = 'block'
+      return
+    }
+    posts = bindDataAndTags(res.body.data)
+  })
+}
+
+function bindDataAndTags (data) {
+  for (var i in data) {
+    data[i].tagsHtml = ''
+    for (var t in data[i].tags) {
+      data[i].tagsHtml += '<span class="' + data[i].tags[t].color + ' padding text-small margin-right">' + data[i].tags[t].name + '</span>'
+    }
+  }
+  return data
+}
+
 function saveLoved () {
   alert('Recurso não disponível nesta versão, aguarde 😉', 'Em breve')
+}
+
+function bindKeyPress (e) {
+  if (e.keyCode === 13) {
+    searchText()
+    return false
+  }
 }
 
 function showSearchText () {
@@ -189,8 +240,93 @@ function backSearch () {
   document.getElementById('header-search').style.display = 'none'
   document.getElementById('cover-primary').style.display = 'block'
   document.getElementById('contentMain').classList.remove('has-header')
+  getPrimaryPost()
+}
+
+function goFilter () {
+  openPage('filter', function () {
+    window.request.getTags(function (err, res) {
+      document.getElementById('loading-tags').style.display = 'none'
+      if (err) {
+        var msg = 'Não foi possível listar tags neste momento, tente mais tarde!'
+        document.getElementById('msg-tags').innerHTML = msg
+        document.getElementById('msg-tags').style.display = 'block'
+        return
+      }
+      document.getElementById('list-tags').style.display = 'block'
+      tags = res.body.data
+      if (filterAll) {
+        document.getElementById('checkbox-all-tag').checked = true
+      }
+    })
+  })
+}
+
+function goAbout () {
+  contributors = []
+  openPage('about', function () {
+    window.request.getContributors(function (err, res) {
+      document.getElementById('loading-contributors').style.display = 'none'
+      if (err) {
+        var msg = 'Não foi possível listar contribuidores neste momento, tente mais tarde!'
+        document.getElementById('msg-contributors').innerHTML = msg
+        document.getElementById('msg-contributors').style.display = 'block'
+        return
+      }
+      contributors = res.body.data
+    })
+  })
+}
+
+MobileUI.istagchecked = function (_id) {
+  var tagHtml = filtersIds.indexOf(_id) !== -1 || filterAll ? 'checked' : ''
+  if (filterAll) {
+    tagHtml += ' disabled'
+  }
+  return tagHtml
+}
+
+MobileUI.getdatestart = function (date) {
+  console.log(date)
+  return '<i class="icon ion-android-calendar"></i> desde ' + moment(Number(date)).format('MM/YYYY')
+}
+
+function changeAllTags () {
+  filterAll = document.getElementById('checkbox-all-tag').checked
+  if (filterAll) {
+    for (var i in tags) {
+      tags[i].checked = true
+    }
+  } else {
+    for (var i in tags) {
+      tags[i].checked = false
+    }
+  }
+  localStorage.removeItem('filter')
+}
+
+function validTagsChekedsAndBack () {
+  if (!filterAll) {
+    filtersIds = ''
+    document.querySelectorAll('input[type="checkbox"]').forEach(function (e) {
+      if (e.attributes.tagitem && e.checked) {
+        if (filtersIds) filtersIds += ','
+        filtersIds += e.id
+      }
+    })
+    localStorage.setItem('filter', filtersIds)
+  } else {
+    localStorage.removeItem('filter')
+  }
+  if (!filterAll && !filtersIds) return alert('Você deve marcar pelo menos uma tag para ser filtrada!', 'Atenção')
+  backPage()
 }
 
 document.addEventListener('backPage', function (e) {
   postId = null
+  contributors = []
+  if (e.detail.page === 'filter.html') {
+    validFilterAll()
+    getPrimaryPost()
+  }
 })

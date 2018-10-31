@@ -1,0 +1,41 @@
+<div class="page">
+
+    <div class="header black text-white">
+        <button class="left icon ion-android-arrow-back" onclick="backPage()"></button>
+        <h1>CodeNews</h1>
+    </div>
+    
+    <div class="content has-header">
+        <div class="space"></div>
+        <div class="align-center">
+            <img src="img/logo.png" width="100px">
+        </div>
+        <div class="font-libre padding-big">
+            CodeNews é um app centralizador de conteúdo para você ficar ligado nas principais notícias sobre o desenvolvimento de software, 
+            lendo e acompanhando os posts recomendado pelos nossos curadores de conteúdo!
+        </div>
+
+        <div class="loading align-center" id="loading-contributors">
+            <div class="space-huge"></div>
+            <svg class="loading-circle" width="40" height="40" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="15"></circle>
+            </svg>
+            <p>Carregando contribuidores...</p>
+        </div>
+        
+        <p class="padding align-center hidden" id="msg-contributors"></p>
+            
+        <div class="list no-border grey-100">
+                <div class="item" onclick="openAboutContributor('${url}')" data="contributors">
+                    <img src="${photo}" class="left avatar circle">
+                    <h1 class="text-strong">${name}</h1>
+                    <p class="text-italic opacity-70 text-small">
+                    $$getdatestart{date_start}
+                    </p>
+                    <div class="right">
+                        <i class="icon ion-ios-arrow-thin-right"></i>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

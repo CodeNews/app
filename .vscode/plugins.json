@@ -1,1 +1,1 @@
-{"plugins":["cordova-plugin-whitelist","onesignal-cordova-plugin"]}
+{"plugins":["cordova-plugin-whitelist","onesignal-cordova-plugin","cordova-plugin-splashscreen","cordova-plugin-statusbar","cordova-plugin-x-socialsharing","es6-promise-plugin"]}

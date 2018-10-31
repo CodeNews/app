@@ -20,13 +20,13 @@
     <h1 class="align-center text-strong">CodeNews</h1>
     <div class="right">
       <button class="icon ion-android-search" onclick="showSearchText()"></button>
-      <button class="icon ion-android-funnel"></button>
+      <button id="btn-filter" class="icon ion-android-funnel" onclick="goFilter()"></button>
     </div>
   </div>
 
   <div class="black hidden" id="header-search">
     <button class="left icon ion-android-arrow-back" onclick="backSearch()"></button>
-    <input id="input-search" class="font-libre" type="text" placeholder="Procurar por...">
+    <input id="input-search" class="font-libre" type="search" placeholder="Procurar por..." onkeypress="return bindKeyPress(event)">
     <button class="right icon ion-checkmark-circled" onclick="searchText()"></button>
   </div>
 
@@ -89,7 +89,7 @@
       </div>
     </div>
     <div class="list no-border">
-      <a class="item text-white opacity-80" onclick="alert('Este recurso não está disponível nesta versão, aguarde!')">
+      <!-- <a class="item text-white opacity-80" onclick="alert('Este recurso não está disponível nesta versão, aguarde!')">
         <div class="left">
           <i class="icon ion-android-funnel"></i>
         </div>
@@ -106,8 +106,8 @@
           <i class="icon ion-android-notifications"></i>
         </div>
         <h1>Notificações</h1>
-      </a>
-      <a class="item text-white opacity-80" onclick="alert('Este recurso não está disponível nesta versão, aguarde!')">
+      </a> -->
+      <a class="item text-white opacity-80" onclick="goAbout()">
         <div class="left">
           <i class="icon ion-android-alert"></i>
         </div>
