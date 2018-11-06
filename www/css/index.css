@@ -11,6 +11,13 @@ html, body {
   width: 85px;
   height: 85px;
 }
+.platform-ios .header {
+  padding-top: 25px;
+  height: 75px;
+}
+.platform-ios .has-header {
+  padding-top: 75px!important;
+}
 .description-post {
     padding: 10px;
 }
